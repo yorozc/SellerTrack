@@ -5,7 +5,9 @@ def interface():
     print("1. Create item\n" \
           "2. Display item\n" \
           "3. Delete item\n" \
-          "4. Search for item\n")
+          "4. Search for item\n" \
+          "5. Help\n" \
+          "6. Exit")
     option = int(input("What would you like to do: "))
     match option:
         case 1:
@@ -19,4 +21,7 @@ def interface():
             delete_item()
         case 4:
             search_item()
-
+        case 5:
+            pass
+        case 6:
+            exit(0)

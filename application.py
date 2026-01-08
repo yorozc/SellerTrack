@@ -2,6 +2,8 @@ from calc.calc_net_prof import calc_net_prof
 from calc.calc_price_sum import calc_price_sum
 from calc.calc_total_sum import calc_netprof_sum
 from domain.item import Item #item object
+import csv
+
 
 
 def create_item(name: str, price: float, og_price: float):
@@ -10,7 +12,11 @@ def create_item(name: str, price: float, og_price: float):
     return new_item
 
 def save_item(item: Item): # write to csv
-    pass
+    with open('data/items_file.csv', mode='w') as items_file:
+        fieldnames = ['name', 'price', 'og_price', 'profit']
+        writer = csv.DictWriter(items_file, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerow({'name': item.name, 'price': item.price, 'og_price':item.og_price, 'profit': item.price - item.og_price})
 
 def delete_item(item: Item):
     pass
@@ -19,7 +25,8 @@ def search_item(key: str):
     pass
 
 def display_items():
-    pass
+    with open('data/items_file.csv', mode='r') as items_file:
+        pass
 
 # def get_net_prof(profit, shipping, fee_percent):
 #     return calc_net_prof(profit, shipping, fee_percent)

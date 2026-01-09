@@ -35,9 +35,6 @@ def display_items():
     else:
         print("FILE NOT FOUND.")
 
-# def get_net_prof(profit, shipping, fee_percent):
-#     return calc_net_prof(profit, shipping, fee_percent)
-
 def get_net_prof_sum(items, shipping, fee_percent): # list of net profits for all items
     netprofits = []
     for item in items:

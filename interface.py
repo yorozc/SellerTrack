@@ -20,9 +20,11 @@ def interface():
         case 2:
             display_items()
         case 3:
-            delete_item()
+            key = input("Insert Item to delete: ")
+            delete_item(key)
         case 4:
-            search_item()
+            key = input("Item Name: ")
+            search_item(key)
         case 5:
             pass
         case 6: # get total price sum

@@ -5,7 +5,7 @@ class Item:
         self._og_price = og_price
 
     def __repr__(self):
-        return f'item: {self._name}: price: {self._price}, Og_price: {self._og_price}'
+        return f'item: {self._name}, price: {self._price}, Og_price: {self._og_price}'
     
     @property 
     def name(self):

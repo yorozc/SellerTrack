@@ -6,7 +6,9 @@ import csv
 import os
 import pandas as pd
 
-def create_item(name: str, price: float, og_price: float):
+# TODO: add error handling
+
+def create_item(name: str, price: float, og_price: float) -> Item:
     new_item = Item(name, price, og_price)
     save_item(new_item)
     print("================\nItem Added!\n================\n")
@@ -20,11 +22,24 @@ def save_item(item: Item): # write to csv
             writer.writeheader()
         writer.writerow({'name': item.name, 'price': item.price, 'og_price':item.og_price, 'profit': item.price - item.og_price})
        
-def delete_item(item: Item):
-    pass
+def delete_item(key: str):
+    item = search_item(key)
+    if item:
+        pass
+    else:
+        return
 
 def search_item(key: str) -> Item:
-    pass
+    with open('data/items_file.csv', 'r') as file:
+        csvFile = csv.reader(file)
+        for line in csvFile:
+            if key in line:
+                 key_item = Item(line[0], float(line[1]), float(line[2]))
+                 print(f'\n{key_item}\n')
+                 return key_item
+            
+        print('\nItem not Found!\n')
+        return None
 
 def display_items():
     if os.path.isfile('data/items_file.csv'):

@@ -43,9 +43,7 @@ def search_item(key: str) -> Item:
 
 def display_items():
     if os.path.isfile('data/items_file.csv'):
-        print()
-        print(pd.read_csv('data/items_file.csv'))
-        print()
+        print(f'\n{pd.read_csv('data/items_file.csv')}\n')
                 
     else:
         print("FILE NOT FOUND.")

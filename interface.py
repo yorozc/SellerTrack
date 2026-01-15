@@ -28,6 +28,7 @@ def interface():
         case 5:
             pass
         case 6: # get total price sum
+            # get input
             get_net_prof_sum()
         case 7: # get total profit
             get_price_sum()

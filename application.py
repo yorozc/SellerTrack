@@ -23,7 +23,7 @@ def save_item(item: Item): # write to csv
 def delete_item(item: Item):
     pass
 
-def search_item(key: str):
+def search_item(key: str) -> Item:
     pass
 
 def display_items():

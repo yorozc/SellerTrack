@@ -1,4 +1,4 @@
-from application import create_item, display_items, delete_item, search_item
+from application import create_item, display_items, delete_item, search_item, get_net_prof_sum, get_price_sum
 
 def interface():
     print("Welcome to SellerTrack")
@@ -7,7 +7,9 @@ def interface():
           "3. Delete item\n" \
           "4. Search for item\n" \
           "5. Help\n" \
-          "6. Exit")
+          "6. Get Total Price Sum\n"\
+          "7. Get Total Profit\n"\
+          "8. Exit")
     option = int(input("What would you like to do: "))
     match option:
         case 1:
@@ -23,5 +25,9 @@ def interface():
             search_item()
         case 5:
             pass
-        case 6:
+        case 6: # get total price sum
+            get_net_prof_sum()
+        case 7: # get total profit
+            get_price_sum()
+        case 8:
             exit(0)

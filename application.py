@@ -22,10 +22,28 @@ def save_item(item: Item): # write to csv
             writer.writeheader()
         writer.writerow({'name': item.name, 'price': item.price, 'og_price':item.og_price, 'profit': item.price - item.og_price})
        
-def delete_item(key: str):
-    item = search_item(key)
-    if item:
-        pass
+def delete_item(search_term: str):
+    item = search_item(search_term)
+    items = {}
+    if item: # if item found
+        result_dict = {}
+        with open('data/items_file.csv', mode='r') as file: # read into items dict
+            csvFile = csv.DictReader(file)
+            for lines in csvFile:
+                items[f"{lines['name']}"] = lines
+
+            # delete item
+            for key, value in items.items():
+                if search_term != key:
+                    result_dict[key] = value
+        
+        with open('data/items_file.csv', mode='w') as file: # overwrite old file
+            fieldnames = ['name', 'price', 'og_price', 'profit']
+            writer = csv.DictWriter(file, fieldnames=fieldnames)
+            writer.writeheader()
+            for value in result_dict.values():
+                writer.writerow(value) # item dict 
+
     else:
         return
 

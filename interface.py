@@ -7,8 +7,8 @@ def interface():
           "3. Delete item\n" \
           "4. Search for item\n" \
           "5. Help\n" \
-          "6. Get Total Price Sum\n"\
-          "7. Get Total Profit\n"\
+          "6. Get Total Net Profit\n"\
+          "7. Get Total Amount Spent\n"\
           "8. Exit")
     option = int(input("What would you like to do: "))
     match option:
@@ -25,7 +25,7 @@ def interface():
         case 4:
             key = input("Item Name: ")
             search_item(key)
-        case 5:
+        case 5: # help func
             pass
         case 6: # get net profit sum
             shipping_fee = float(input("What is the shipping cost?: "))

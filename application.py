@@ -1,5 +1,4 @@
 from calc.calc_net_prof import calc_net_prof
-from calc.calc_price_sum import calc_price_sum
 from calc.calc_netprof_sum import calc_netprof_sum
 from domain.item import Item #item object
 import csv
@@ -19,6 +18,7 @@ def create_item(name: str, price: float, og_price: float) -> Item:
     return new_item
 
 def save_item(item: Item): # write to csv
+    # TODO: Add netprofit, shipping fee, other fees (seller fees like ebay or depop)
     with open('data/items_file.csv', mode='a') as items_file:
         fieldnames = ['name', 'price', 'og_price', 'profit']
         writer = csv.DictWriter(items_file, fieldnames=fieldnames)
@@ -99,5 +99,4 @@ def get_price_sum():
             items.append(line)
     for item in items:
         price += float(item["og_price"])
-
     print(f'\nTotal amount spent: {price}\n')

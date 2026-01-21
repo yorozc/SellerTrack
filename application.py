@@ -1,6 +1,6 @@
 from calc.calc_net_prof import calc_net_prof
 from calc.calc_price_sum import calc_price_sum
-from calc.calc_total_sum import calc_netprof_sum
+from calc.calc_netprof_sum import calc_netprof_sum
 from domain.item import Item #item object
 import csv
 import os
@@ -8,8 +8,12 @@ import pandas as pd
 
 # TODO: add error handling
 
+# helper func to just read csv file
+def return_csv():
+    pass
+
 def create_item(name: str, price: float, og_price: float) -> Item:
-    new_item = Item(name, price, og_price)
+    new_item = Item(name.lower(), price, og_price)
     save_item(new_item)
     print("================\nItem Added!\n================\n")
     return new_item
@@ -32,7 +36,7 @@ def delete_item(search_term: str):
             for lines in csvFile:
                 items[f"{lines['name']}"] = lines
 
-            # delete item
+            # delete item by adding not found items to dictionary
             for key, value in items.items():
                 if search_term != key:
                     result_dict[key] = value
@@ -43,6 +47,8 @@ def delete_item(search_term: str):
             writer.writeheader()
             for value in result_dict.values():
                 writer.writerow(value) # item dict 
+        
+        print(f'\nItem {search_term} deleted!\n')
 
     else:
         return
@@ -66,12 +72,23 @@ def display_items():
     else:
         print("FILE NOT FOUND.")
 
-def get_net_prof_sum(items, shipping, fee_percent): # list of net profits for all items
+def get_net_prof_sum(shipping, fee_percent): # list of net profits for all items
+    # get items
+    items = []
+    with open('data/items_file.csv', 'r') as file:
+        csvFile = csv.DictReader(file)
+        for line in csvFile:
+            items.append(line)
     netprofits = []
     for item in items:
-        profit = item.og_price - item.price
-        netprofits.append(calc_net_prof(profit, shipping, fee_percent))
-    return calc_netprof_sum(netprofits)
+        print(item)
+        price = float(item["price"])
+        cost = float(item["og_price"])
+        print(calc_net_prof(price, cost, shipping, fee_percent))
+        netprofits.append(calc_net_prof(price, cost, shipping, fee_percent))
+    
+    net_prof_sum = calc_netprof_sum(netprofits)
+    print(f'Total net profit of all items: {net_prof_sum}')
 
 def get_price_sum(items: list):
     prices_list = []

@@ -28,11 +28,10 @@ def interface():
         case 5:
             pass
         case 6: # get net profit sum
-            # get input
             shipping_fee = float(input("What is the shipping cost?: "))
             site_fee = float(input("What is the site (ebay) fee percentage(%)?: "))
             get_net_prof_sum(shipping_fee, site_fee)
-        case 7: # get total profit
+        case 7: # get sum of original prices
             get_price_sum()
         case 8:
             exit(0)

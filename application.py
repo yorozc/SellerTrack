@@ -90,9 +90,14 @@ def get_net_prof_sum(shipping, fee_percent): # list of net profits for all items
     net_prof_sum = calc_netprof_sum(netprofits)
     print(f'Total net profit of all items: {net_prof_sum}')
 
-def get_price_sum(items: list):
-    prices_list = []
+def get_price_sum():
+    price = 0.0
+    items = []
+    with open('data/items_file.csv', 'r') as file:
+        csvFile = csv.DictReader(file)
+        for line in csvFile:
+            items.append(line)
     for item in items:
-        prices += item.price
-        prices_list.append(prices)
-    return calc_price_sum(prices_list)
+        price += float(item["og_price"])
+
+    print(f'\nTotal amount spent: {price}\n')

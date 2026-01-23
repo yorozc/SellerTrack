@@ -16,7 +16,9 @@ def interface():
             item_name = input("Input name: ")
             item_price = float(input("Input price: "))
             item_og_price = float(input("Input original price: "))
-            create_item(item_name, item_price, item_og_price)
+            shipping_fee = float(input("Input shipping fee: "))
+            platform_fee = float(input("Input platform fee in percentage (%): "))
+            create_item(item_name, item_price, item_og_price, shipping_fee, platform_fee)
         case 2:
             display_items()
         case 3:
@@ -28,9 +30,7 @@ def interface():
         case 5: # help func
             pass
         case 6: # get net profit sum
-            shipping_fee = float(input("What is the shipping cost?: "))
-            site_fee = float(input("What is the site (ebay) fee percentage(%)?: "))
-            get_net_prof_sum(shipping_fee, site_fee)
+            get_net_prof_sum()
         case 7: # get sum of original prices
             get_price_sum()
         case 8:

@@ -71,7 +71,7 @@ def edit_item(key: str):
 
 def display_items():
     if os.path.isfile('data/items_file.csv'):
-        print(f'\n{pd.read_csv('data/items_file.csv')}\n')
+        print(pd.read_csv('data/items_file.csv'))
                 
     else:
         print("FILE NOT FOUND.")

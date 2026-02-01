@@ -8,8 +8,13 @@ import pandas as pd
 # TODO: add error handling
 
 # helper func to just read csv file
-def return_csv():
-    pass
+def return_csv() -> list:
+    items = []
+    with open('data/items_file.csv', 'r') as file:
+        csvFile = csv.DictReader(file)
+        for line in csvFile:
+            items.append(line)
+    return items
 
 def create_item(name: str, price: float, og_price: float, shipping_fee: float, platform_fee: float) -> Item:
     new_item = Item(name.lower(), price, og_price, shipping_fee, platform_fee)
@@ -30,7 +35,7 @@ def save_item(item: Item): # write to csv
 def delete_item(search_term: str):
     item = search_item(search_term)
     items = {}
-    if item: # if item found
+    if item:
         result_dict = {}
         with open('data/items_file.csv', mode='r') as file: # read into items dict
             csvFile = csv.DictReader(file)
@@ -78,31 +83,25 @@ def display_items():
 
 def get_net_prof_sum(): # list of net profits for all items
     # get items
-    items = []
-    with open('data/items_file.csv', 'r') as file:
-        csvFile = csv.DictReader(file)
-        for line in csvFile:
-            items.append(line)
+    items = return_csv()
+
     netprofits = []
     for item in items:
-        # print(item)
+        print(item)
         price = float(item["price"])
         cost = float(item["og_price"])
         shipping = float(item["shipping"])
         platform_fee = float(item["platform_fee"])
-        # print(calc_net_prof(price, cost, shipping, platform_fee))
+        print(calc_net_prof(price, cost, shipping, platform_fee))
         netprofits.append(calc_net_prof(price, cost, shipping, platform_fee))
     
     net_prof_sum = calc_netprof_sum(netprofits)
-    print(f'\nTotal net profit of all items: ${price:.2f}\n')
+    print(f'\nTotal net profit of all items: ${net_prof_sum:.2f}\n')
 
 def get_price_sum():
     price = 0.0
-    items = []
-    with open('data/items_file.csv', 'r') as file:
-        csvFile = csv.DictReader(file)
-        for line in csvFile:
-            items.append(line)
+    items = return_csv()
+    
     for item in items:
         price += float(item["og_price"])
     print(f'\nTotal amount spent: ${price:.2f}\n')

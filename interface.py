@@ -1,15 +1,16 @@
-from application import create_item, display_items, delete_item, search_item, get_net_prof_sum, get_price_sum
+from application import create_item, display_items, delete_item, search_item, get_net_prof_sum, get_price_sum, edit_item
 
 def interface():
     print("Welcome to SellerTrack")
     print("1. Create item\n" \
           "2. Display item\n" \
           "3. Delete item\n" \
-          "4. Search for item\n" \
-          "5. Help\n" \
-          "6. Get Total Net Profit\n"\
-          "7. Get Total Amount Spent\n"\
-          "8. Exit")
+          "4. Edit item\n" \
+          "5. Search for item\n" \
+          "6. Help\n" \
+          "7. Get Total Net Profit\n"\
+          "8. Get Total Amount Spent\n"\
+          "9. Exit")
     option = int(input("What would you like to do: "))
     match option:
         case 1:
@@ -25,13 +26,16 @@ def interface():
             key = input("Insert Item to delete: ")
             delete_item(key)
         case 4:
+            key = input("Insert Item to edit: ")
+            edit_item(key)
+        case 5: 
             key = input("Item Name: ")
             search_item(key)
-        case 5: # help func
+        case 6: # help func
             pass
-        case 6: # get net profit sum
+        case 7: # get net prof sum
             get_net_prof_sum()
-        case 7: # get sum of original prices
+        case 8: # get total price sum
             get_price_sum()
-        case 8:
+        case 9:
             exit(0)

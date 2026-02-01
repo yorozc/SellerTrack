@@ -16,6 +16,14 @@ def return_csv() -> list:
             items.append(line)
     return items
 
+def overwrite_file(items: list):
+    with open('data/items_file.csv', mode='w') as file: # overwrite old file
+            fieldnames = ['name', 'price', 'og_price', 'profit', 'shipping', 'platform_fee']
+            writer = csv.DictWriter(file, fieldnames=fieldnames)
+            writer.writeheader()
+            for value in items:
+                writer.writerow(value) # item dict 
+
 def create_item(name: str, price: float, og_price: float, shipping_fee: float, platform_fee: float) -> Item:
     new_item = Item(name.lower(), price, og_price, shipping_fee, platform_fee)
     save_item(new_item)
@@ -23,7 +31,6 @@ def create_item(name: str, price: float, og_price: float, shipping_fee: float, p
     return new_item
 
 def save_item(item: Item): # write to csv
-    # TODO: Add netprofit, shipping fee, other fees (seller fees like ebay or depop)
     with open('data/items_file.csv', mode='a') as items_file:
         fieldnames = ['name', 'price', 'og_price', 'profit', 'shipping', 'platform_fee']
         writer = csv.DictWriter(items_file, fieldnames=fieldnames)
@@ -47,12 +54,7 @@ def delete_item(search_term: str):
                 if search_term != key:
                     result_dict[key] = value
         
-        with open('data/items_file.csv', mode='w') as file: # overwrite old file
-            fieldnames = ['name', 'price', 'og_price', 'profit', 'shipping', 'platform_fee']
-            writer = csv.DictWriter(file, fieldnames=fieldnames)
-            writer.writeheader()
-            for value in result_dict.values():
-                writer.writerow(value) # item dict 
+        overwrite_file(result_dict) 
         
         print(f'\nItem {search_term} deleted!\n')
 
@@ -72,7 +74,33 @@ def search_item(key: str) -> Item:
         return None
     
 def edit_item(key: str):
-    pass
+    items = return_csv()
+    for item in items:
+        if key == item["name"]:
+            print("1. Edit Name\n"
+                  "2. Edit Price\n"
+                  "3. Edit Original Price\n"
+                  "4. Edit Shipping\n"
+                  "5. Edit Platform Fee\n") 
+            option = int(input("What would you like to edit: "))
+            match option:
+                case 1:
+                    new_name = input("Change item name: ")
+                    item["name"] = new_name
+                case 2:
+                    pass
+                case 3:
+                    pass
+                case 4:
+                    pass
+                case 5:
+                    pass
+            overwrite_file(items)
+        else:
+            print("Item not found")
+
+    
+
 
 def display_items():
     if os.path.isfile('data/items_file.csv'):
@@ -101,7 +129,7 @@ def get_net_prof_sum(): # list of net profits for all items
 def get_price_sum():
     price = 0.0
     items = return_csv()
-    
+
     for item in items:
         price += float(item["og_price"])
     print(f'\nTotal amount spent: ${price:.2f}\n')

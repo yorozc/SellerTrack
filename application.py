@@ -10,14 +10,14 @@ import pandas as pd
 # helper func to just read csv file
 def return_csv() -> list:
     items = []
-    with open('data/items_file.csv', 'r') as file:
+    with open('items_file.csv', 'r') as file:
         csvFile = csv.DictReader(file)
         for line in csvFile:
             items.append(line)
     return items
 
 def overwrite_file(items: list):
-    with open('data/items_file.csv', mode='w') as file: # overwrite old file
+    with open('items_file.csv', mode='w') as file: # overwrite old file
             fieldnames = ['name', 'price', 'og_price', 'profit', 'shipping', 'platform_fee']
             writer = csv.DictWriter(file, fieldnames=fieldnames)
             writer.writeheader()
@@ -31,7 +31,7 @@ def create_item(name: str, price: float, og_price: float, shipping_fee: float, p
     return new_item
 
 def save_item(item: Item): # write to csv
-    with open('data/items_file.csv', mode='a') as items_file:
+    with open('items_file.csv', mode='a') as items_file:
         fieldnames = ['name', 'price', 'og_price', 'profit', 'shipping', 'platform_fee']
         writer = csv.DictWriter(items_file, fieldnames=fieldnames)
         if items_file.tell() == 0:
@@ -44,7 +44,7 @@ def delete_item(search_term: str):
     items = {}
     if item:
         result_dict = {}
-        with open('data/items_file.csv', mode='r') as file: # read into items dict
+        with open('items_file.csv', mode='r') as file: # read into items dict
             csvFile = csv.DictReader(file)
             for lines in csvFile:
                 items[f"{lines['name']}"] = lines
@@ -62,7 +62,7 @@ def delete_item(search_term: str):
         return
 
 def search_item(key: str) -> Item:
-    with open('data/items_file.csv', 'r') as file:
+    with open('items_file.csv', 'r') as file:
         csvFile = csv.reader(file)
         for line in csvFile:
             if key in line:
@@ -103,8 +103,8 @@ def edit_item(key: str):
 
 
 def display_items():
-    if os.path.isfile('data/items_file.csv'):
-        print(pd.read_csv('data/items_file.csv'))
+    if os.path.isfile('items_file.csv'):
+        print(pd.read_csv('items_file.csv'))
                 
     else:
         print("FILE NOT FOUND.")
